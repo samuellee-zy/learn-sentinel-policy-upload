@@ -11,6 +11,31 @@ import "decimal"
 # Monthly Limit
 limit = decimal.new(1000)
 
+# Function
+limit_cost_by_workspace_type = func(limits) {
+  if tfrun.cost_estimate else null is null {
+    print("No cost estimates available")
+    # Allow the policy to pass
+    return true
+  }
+  
+  # Determine proposed monthly cost
+  proposed_cost = decimal.new(tfrun.cost_estimate.proposed_monthly_cost)
+
+  # Compare proposed monthly cost to the limit
+  if proposed_cost.lte(limit) {
+    print("Proposed monthly cost", proposed_cost.string,
+          "of workspace", workspace_name,
+          "is under the limit: $", limit.string)
+    return true
+  } else {
+    print("Proposed monthly cost", proposed_cost.string,
+          "of workspace", workspace_name,
+          "is over the limit: $", limit.string)
+    return false
+  }
+}
+
 # Call the validation function
 # Warnings will be printed for violations
 cost_validated = run.limit_proposed_monthly_cost(limit)
