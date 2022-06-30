@@ -12,7 +12,7 @@ import "decimal"
 limit = decimal.new(1000)
 
 # Function
-limit_cost_by_workspace_type = func(limits) {
+limit_cost_by_workspace_type = func(limit) {
   if tfrun.cost_estimate else null is null {
     print("No cost estimates available")
     # Allow the policy to pass
