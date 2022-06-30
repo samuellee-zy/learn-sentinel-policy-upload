@@ -4,7 +4,7 @@
 
 # Import common-functions/tfrun-functions/tfrun-functions.sentinel
 # with alias "run"
-import "tfrun-functions" as run
+import "tfrun" as run
 # The standard decimal import
 import "decimal"
 
