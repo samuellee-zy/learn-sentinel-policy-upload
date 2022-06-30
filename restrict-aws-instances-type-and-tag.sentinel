@@ -16,6 +16,7 @@ mandatory_tags = [
 allowed_types = [
     "t2.small",
     "t2.medium",
+    "t2.large"
 ]
 
 # Rule to enforce "Name" tag on all instances
