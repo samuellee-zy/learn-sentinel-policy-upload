@@ -1,24 +1,41 @@
 # This policy uses the Sentinel tfrun import to restrict the
 # proposed monthly cost that would be incurred if the current
-# plan were applied
+# plan were applied, using different limits for different
+# workspaces based on their names.
 
-# Import common-functions/tfrun-functions/tfrun-functions.sentinel
-# with alias "run"
-import "tfrun" as run
-# The standard decimal import
+##### Imports #####
+
+import "tfrun"
 import "decimal"
 
-# Monthly Limit
-limit = decimal.new(1000)
+##### Functions #####
 
-# Function
-limit_cost_by_workspace_type = func(limit) {
+# Validate that the proposed monthly cost is less than the limit
+limit_cost_by_workspace_type = func(limits) {
+
+  # Check whether cost estimate is available
+  # It should be for Terraform 0.12.x
+  # It should not be for Terraform 0.11.x
   if tfrun.cost_estimate else null is null {
     print("No cost estimates available")
     # Allow the policy to pass
     return true
   }
-  
+
+  # Get workspace name
+  workspace_name = tfrun.workspace.name
+
+  # Determine limit for current workspace
+  if workspace_name matches "(.*)-dev$" {
+    limit = limits["dev"]
+  } else if workspace_name matches "(.*)-qa$" {
+    limit = limits["qa"]
+  } else if workspace_name matches "(.*)-prod$" {
+    limit = limits["prod"]
+  } else {
+    limit = limits["other"]
+  }
+
   # Determine proposed monthly cost
   proposed_cost = decimal.new(tfrun.cost_estimate.proposed_monthly_cost)
 
@@ -36,9 +53,18 @@ limit_cost_by_workspace_type = func(limit) {
   }
 }
 
+##### Monthly Limits #####
+limits = {
+  "dev": decimal.new(200),
+  "qa": decimal.new(500),
+  "prod": decimal.new(1000),
+  "other": decimal.new(50),
+}
+
+##### Rules #####
+
 # Call the validation function
-# Warnings will be printed for violations
-cost_validated = run.limit_proposed_monthly_cost(limit)
+cost_validated = limit_cost_by_workspace_type(limits)
 
 # Main rule
 main = rule {
