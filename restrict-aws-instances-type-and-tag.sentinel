@@ -1,6 +1,5 @@
 # Imports mock data
 import "tfplan/v2" as tfplan
-import "tfplan-functions" as plan
 
 # Get all AWS instances from all modules
 ec2_instances = filter tfplan.resource_changes as _, rc {
@@ -22,8 +21,7 @@ instance_type_allowed = rule {
     }
 }
 
-allEC2Instances = plan.find_resources("aws_instance")
-print("Instance Type: ", allEC2Instances)
+print("Instance Type: ", ec2_instances.instance.instance_type)
 
 # Main rule that requires other rules to be true
 main = rule {
