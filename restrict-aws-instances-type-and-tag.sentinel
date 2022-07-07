@@ -21,10 +21,10 @@ instance_type_allowed = rule {
     }
 }
 
-print("Instance Type: ", ec2_instances)
+print("Instance Type: ", instance.string)
 
-# Main rule that requires other rules to be true
+/* # Main rule that requires other rules to be true
 main = rule {
     (instance_type_allowed) else true
-}
+} */
 
