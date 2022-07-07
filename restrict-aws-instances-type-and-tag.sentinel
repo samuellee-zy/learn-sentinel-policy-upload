@@ -18,9 +18,10 @@ allowed_types = [
 instance_type_allowed = rule {
     all ec2_instances as _, instance {
         instance.change.after.instance_type in allowed_types
-        print("Instance Type: ", ec2_instances)
     }
 }
+
+print("Instance Type: ", ec2_instances)
 
 # Main rule that requires other rules to be true
 main = rule {
