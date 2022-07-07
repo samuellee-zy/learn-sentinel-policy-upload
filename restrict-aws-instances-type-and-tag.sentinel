@@ -21,7 +21,7 @@ instance_type_allowed = rule {
     }
 }
 
-allEC2Instances = plan.find_resources("aws_instance")
+allEC2Instances = tfplan.find_resources("aws_instance")
 
 print("Instance Type: ", allEC2Instances)
 
