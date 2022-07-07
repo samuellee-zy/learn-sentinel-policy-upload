@@ -21,7 +21,7 @@ instance_type_allowed = rule {
     }
 }
 
-print("Instance Type: ", instance.string)
+print("Instance Type: ", instance_type)
 
 # Main rule that requires other rules to be true
 main = rule {
