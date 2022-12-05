@@ -3,5 +3,5 @@ policy "restrict-aws-instances-type-and-tag" {
 }
 
 policy "limit-cost-by-workspace-name" {
-  enforcement_level = "soft-mandatory"
+  enforcement_level = "advisory"
 }
