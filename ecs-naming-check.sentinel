@@ -1,0 +1,27 @@
+import "tfplan/v2" as tfplan
+
+// Sentinel filter expression used to filter out all aws_s3_bucket resources 
+// that will change once the Terraform plan has been applied.
+aws_ecs = filter tfplan.resource_changes as _, resource_changes {
+  resource_changes.type is "aws_ecs_cluster" and
+  	resource_changes.mode is "managed" and
+  		(resource_changes.change.actions contains "create" or
+            resource_changes.change.actions is ["update"])
+}
+
+aws_ecs_cluster_name = rule {
+	all aws_ecs as _, aws_ecs {
+    aws_ecs.change.after.name matches "^demo-.*-ecs$" 
+  }
+}
+
+main = rule {
+  aws_ecs_cluster_name
+}
+
+if aws_ecs_cluster_name == true {
+  print("AWS ECS Naming convention matches the regex --> ^demo-.*-ecs$")
+} else {
+  print("AWS ECS Naming convention DOES NOT match the regex --> ^demo-.*-ecs$")
+}
+      
