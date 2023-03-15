@@ -4,7 +4,7 @@
 // }
 
 policy "limit-cost-by-workspace-name" {
-  source = "./limit-cost-by-workspace.sentinel"
+  source = "./limit-cost-by-workspace-name.sentinel"
   enforcement_level = "advisory"
 }
 
