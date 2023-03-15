@@ -11,7 +11,7 @@ resource "tfe_oauth_client" "samuelleezy" {
   service_provider = "github"
 }
 
-resource "tfe_policy_set" "test" {
+resource "tfe_policy_set" "samuellee-dev-tfc-sentinel-policies" {
   name          = "samuellee-dev-tfc-sentinel-policies"
   description   = "List of Sentinel Policies"
   organization  = var.orgName
@@ -19,7 +19,7 @@ resource "tfe_policy_set" "test" {
   policies_path = "policies"
 
   vcs_repo {
-    identifier         = "samuelleezy/samuellee-dev-tfc-sentinel-policies"
+    identifier         = "samuellee-zy/samuellee-dev-tfc-sentinel-policies"
     branch             = "main"
     ingress_submodules = false
     oauth_token_id     = tfe_oauth_client.samuelleezy.oauth_token_id
