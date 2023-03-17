@@ -3,6 +3,10 @@
 //   enforcement_level = "advisory"
 // }
 
+module "tfplan-functions" {
+  source = "./common-functions/tfplan-functions/tfplan-functions.sentinel"
+}
+
 policy "limit-cost-by-workspace-name" {
   source = "./limit-cost-by-workspace-name.sentinel"
   enforcement_level = "advisory"
