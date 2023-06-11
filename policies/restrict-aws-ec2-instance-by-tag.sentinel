@@ -34,3 +34,11 @@ aws_ec2_tag_values = rule {
 main = rule {
     aws_ec2_tag_exists and aws_ec2_tag_values
 }
+
+if (aws_ec2_tag_exists and aws_ec2_tag_values) {
+	print("Mandatory tags and tag values meets set requirements")
+} else if (aws_ec2_tag_exists == false) {
+	print("Mandatory tag(s) are missing and need to be re-evaluated")
+} else {
+  print("Tag values are missing and need to be re-evaluated")
+}

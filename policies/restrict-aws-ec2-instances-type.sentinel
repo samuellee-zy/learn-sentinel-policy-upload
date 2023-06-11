@@ -11,6 +11,8 @@ ec2_instances = filter tfplan.resource_changes as _, rc {
         (rc.change.actions contains "create" or rc.change.actions is ["update"])
 }
 
+instanceType = tfplan.resource_changes["aws_instance.ubuntu"].change.after.instance_type
+
 # Allowed Types
 allowed_types = [
     "t2.micro",
@@ -31,3 +33,9 @@ main = rule {
     (instance_type_allowed) else true
 }
 
+if (instance_type_allowed) {
+	print("EC2 instance type matches the allowed types")
+} else {
+  print("Instance type is incorrect: ", instanceType)
+  print("Needs to be of type: ['t2.micro', 't2.small', 't2.medium', 't2.large']")
+}
