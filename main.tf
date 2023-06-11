@@ -10,7 +10,6 @@ resource "tfe_policy_set" "samuellee-dev-tfc-sentinel-policies" {
   policies_path = "policies"
   workspace_ids = values(data.tfe_workspace_ids.sentinel.ids)
 
-
   vcs_repo {
     identifier         = "samuellee-zy/samuellee-dev-tfc-sentinel-policies"
     branch             = "main"

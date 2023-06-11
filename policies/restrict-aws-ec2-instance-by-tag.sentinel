@@ -1,0 +1,33 @@
+import "tfplan/v2" as tfplan
+
+// Sentinel filter expression used to filter out all aws_s3_bucket resources 
+// that will change once the Terraform plan has been applied.
+aws_ec2 = filter tfplan.resource_changes as _, resource_changes {
+    resource_changes.type is "aws_instance" and
+        resource_changes.mode is "managed" and
+        (resource_changes.change.actions contains "create" or
+            resource_changes.change.actions is ["update"])
+}
+
+mandatory_tags = [
+  "Name",
+  "Demo",
+]
+
+aws_ec2_tag_exists = rule {
+  all aws_ec2 as _, aws_ec2_instance {
+    all mandatory_tags as _, mt {
+      aws_ec2_instance.change.after.tags contains mt
+    }
+  }
+}
+
+aws_ec2_tag_values = rule {
+  all aws_ec2 as _, instance {
+    instance.change.after.tags.Name contains "-dev" and instance.change.after.tags.Demo contains "aws-immersion-day"
+  }
+}
+
+main = rule {
+    aws_ec2_tag_exists and aws_ec2_tag_values
+}
