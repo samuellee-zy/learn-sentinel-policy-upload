@@ -1,3 +1,7 @@
+# This policy uses the Sentinel tfplan import to restrict the
+# provisioning of ec2 instances based on the specific set of
+# instance type that has been pre-set within the sentinel policy
+
 # Imports mock data
 import "tfplan/v2" as tfplan
 

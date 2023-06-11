@@ -1,3 +1,6 @@
+# This policy uses the Sentinel tfplan import to restrict the
+# provisioning of ec2 instances based on tags and tag values
+
 import "tfplan/v2" as tfplan
 
 // Sentinel filter expression used to filter out all aws_s3_bucket resources 
