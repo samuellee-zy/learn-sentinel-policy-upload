@@ -12,12 +12,16 @@ policy "limit-cost-by-workspace-name" {
   enforcement_level = "advisory"
 }
 
-policy "ecs-naming-check" {
-  source = "./ecs-naming-check.sentinel"
+policy "restrict-aws-instance-type" {
+  source = "./restrict-aws-instances-type.sentinel"
   enforcement_level = "advisory"
 }
+// policy "ecs-naming-check" {
+//   source = "./ecs-naming-check.sentinel"
+//   enforcement_level = "advisory"
+// }
 
-policy "ecs-no-public-ip" {
-  source = "./ecs-no-public-ip.sentinel"
-  enforcement_level = "advisory"
-}
+// policy "ecs-no-public-ip" {
+//   source = "./ecs-no-public-ip.sentinel"
+//   enforcement_level = "advisory"
+// }
