@@ -12,8 +12,13 @@ policy "limit-cost-by-workspace-name" {
   enforcement_level = "advisory"
 }
 
-policy "restrict-aws-instance-type" {
-  source = "./restrict-aws-instances-type.sentinel"
+policy "restrict-aws-ec2-instance-type" {
+  source = "./restrict-aws-ec2-instances-type.sentinel"
+  enforcement_level = "advisory"
+}
+
+policy "restrict-aws-ec2-instance-by-tag" {
+  source = "./restrict-aws-ec2-instance-by-tag.sentinel"
   enforcement_level = "advisory"
 }
 // policy "ecs-naming-check" {
