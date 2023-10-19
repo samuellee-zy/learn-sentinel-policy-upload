@@ -19,7 +19,7 @@ policy "restrict-aws-ec2-instance-type" {
 
 policy "restrict-aws-ec2-instance-by-tag" {
   source = "./restrict-aws-ec2-instance-by-tag.sentinel"
-  enforcement_level = "advisory"
+  enforcement_level = "soft-mandatory"
 }
 // policy "ecs-naming-check" {
 //   source = "./ecs-naming-check.sentinel"
