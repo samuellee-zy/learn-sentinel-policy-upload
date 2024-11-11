@@ -12,15 +12,15 @@ policy "limit-cost-by-workspace-name" {
   enforcement_level = "advisory"
 }
 
-policy "restrict-aws-ec2-instance-type" {
-  source = "./restrict-aws-ec2-instances-type.sentinel"
-  enforcement_level = "advisory"
-}
+//policy "restrict-aws-ec2-instance-type" {
+//  source = "./restrict-aws-ec2-instances-type.sentinel"
+//  enforcement_level = "advisory"
+//}
 
-policy "restrict-aws-ec2-instance-by-tag" {
-  source = "./restrict-aws-ec2-instance-by-tag.sentinel"
-  enforcement_level = "soft-mandatory"
-}
+//policy "restrict-aws-ec2-instance-by-tag" {
+//  source = "./restrict-aws-ec2-instance-by-tag.sentinel"
+//  enforcement_level = "soft-mandatory"
+//}
 // policy "ecs-naming-check" {
 //   source = "./ecs-naming-check.sentinel"
 //   enforcement_level = "advisory"
